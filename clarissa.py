@@ -24,16 +24,20 @@ def send_mess(chat, text):
     params = {'chat_id': chat, 'text': text}
     response = requests.post(url + 'sendMessage', data=params)
     return response
-
+#recupera el id de la ultima conversasion
 chat_id = get_chat_id(last_update(get_updates_json(url)))
-
+##manda mensaje al al ultimo chat
 send_mess(chat_id, 'Hola soy clarissa y estoy para servirle')
 
+##es el loop para siempre contestar
 def main():  
     update_id = last_update(get_updates_json(url))['update_id']
     while True:
+        #chequea si update id tiene chat nuecos
         if update_id == last_update(get_updates_json(url))['update_id']:
-           send_mess(get_chat_id(last_update(get_updates_json(url))), 'joder macho que este mensaje es automatico')
+            # manda mensaje al ultima conver que le mando mensaje
+           send_mess(get_chat_id(last_update(get_updates_json(url))), 'este mensaje se contesta automaticamente')
+           #cambia el estado para que no se loopee y se mande menaje cuando si se reciva mensaje
            update_id += 1
     sleep(1)       
 
